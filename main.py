@@ -44,53 +44,21 @@ brian = Instructor('Brian', 'Nilsen', 'Brian Nilsen', 'C40', 'Dad Jokes')
 
 instructors = [zoe, joe, luke, brian]
 
+# Loops through all instructors, then per each instructor, loops through all students and assigns each student two exercises.
+
 def assignment_handout():
     for instructor in instructors:
         for student in students:
             for x in range(0, 2):
                 instructor.give_assignment_to_student(student, exercises)
 
-# zoe.give_assignment_to_student(sarah, exercises)
-# zoe.give_assignment_to_student(sarah, exercises)
-# zoe.give_assignment_to_student(davis, exercises)
-# zoe.give_assignment_to_student(davis, exercises)
-# zoe.give_assignment_to_student(michele, exercises)
-# zoe.give_assignment_to_student(michele, exercises)
-# zoe.give_assignment_to_student(joey, exercises)
-# zoe.give_assignment_to_student(joey, exercises)
-
-# joe.give_assignment_to_student(sarah, exercises)
-# joe.give_assignment_to_student(sarah, exercises)
-# joe.give_assignment_to_student(davis, exercises)
-# joe.give_assignment_to_student(davis, exercises)
-# joe.give_assignment_to_student(michele, exercises)
-# joe.give_assignment_to_student(michele, exercises)
-# joe.give_assignment_to_student(joey, exercises)
-# joe.give_assignment_to_student(joey, exercises)
-
-# luke.give_assignment_to_student(sarah, exercises)
-# luke.give_assignment_to_student(sarah, exercises)
-# luke.give_assignment_to_student(davis, exercises)
-# luke.give_assignment_to_student(davis, exercises)
-# luke.give_assignment_to_student(michele, exercises)
-# luke.give_assignment_to_student(michele, exercises)
-# luke.give_assignment_to_student(joey, exercises)
-# luke.give_assignment_to_student(joey, exercises)
-
-# brian.give_assignment_to_student(sarah, exercises)
-# brian.give_assignment_to_student(sarah, exercises)
-# brian.give_assignment_to_student(davis, exercises)
-# brian.give_assignment_to_student(davis, exercises)
-# brian.give_assignment_to_student(michele, exercises)
-# brian.give_assignment_to_student(michele, exercises)
-# brian.give_assignment_to_student(joey, exercises)
-# brian.give_assignment_to_student(joey, exercises)
+# Loops through all students and then each student's assignment collection and builds a string report that is then printed to the terminal.
 
 def report_to_terminal():
     assignment_handout()
     for student in students:
         string = ''
-        string += f'{student.first_name} is working on '
+        string += f'{student.first_name} is working on'
         assignment_list = list(student.assignments)
         for assignment in assignment_list:
             if assignment_list.index(assignment) == len(assignment_list) - 1:
