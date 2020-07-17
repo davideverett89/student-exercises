@@ -52,7 +52,8 @@ def assignment_handout():
             for x in range(0, 2):
                 instructor.give_assignment_to_student(student, exercises)
 
-# Loops through all students and then each student's assignment collection and builds a string report that is then printed to the terminal.
+# Loops through all students, adding their name to a string and then per each student, 
+# loops through his or her assignments collection and adds those to the string as well before printing to the terminal.
 
 def report_to_terminal():
     assignment_handout()
