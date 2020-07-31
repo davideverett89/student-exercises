@@ -1,0 +1,399 @@
+DELETE FROM cohorts;
+DELETE FROM students;
+DELETE FROM instructors;
+DELETE FROM exercises;
+DELETE FROM student_exercises;
+
+DROP TABLE IF EXISTS cohorts;
+DROP TABLE IF EXISTS students;
+DROP TABLE IF EXISTS instuctors;
+DROP TABLE IF EXISTS exercises;
+DROP TABLE IF EXISTS student_exercises;
+
+CREATE TABLE cohorts (
+    id	   INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name   TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE students (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    slack_handle TEXT NOT NULL,
+    cohort_id INTEGER NOT NULL,
+    FOREIGN KEY('cohort_id') REFERENCES 'cohorts'('id')
+);
+
+CREATE TABLE instructors (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    slack_handle TEXT NOT NULL,
+    cohort_id INTEGER NOT NULL,
+    specialty TEXT NOT NULL,
+    FOREIGN KEY('cohort_id') REFERENCES 'cohorts'('id')
+);
+
+CREATE TABLE exercises (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    language TEXT NOT NULL
+);
+
+CREATE TABLE student_exercises (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    student_id INTEGER NOT NULL,
+    exercise_id INTEGER NOT NULL,
+    FOREIGN KEY('student_id') REFERENCES 'students'('id'),
+    FOREIGN KEY('exercise_id') REFERENCES 'exercises'('id')
+);
+
+INSERT INTO cohorts (name)
+VALUES ('Day Cohort 40');
+
+INSERT INTO cohorts (name)
+VALUES ('Evening Cohort 11');
+
+INSERT INTO cohorts (name)
+VALUES ('Day Cohort 41');
+
+INSERT INTO cohorts (name)
+VALUES ('Evening Cohort 12');
+
+INSERT INTO exercises (name, language)
+VALUES ('Products Cards', 'CSS');
+
+INSERT INTO exercises (name, language)
+VALUES ('Sorting Hat', 'JavaScript');
+
+INSERT INTO exercises (name, language)
+VALUES ('Pet Adoption', 'JavaScript');
+
+INSERT INTO exercises (name, language)
+VALUES ('Stocks Report', 'Python');
+
+INSERT INTO exercises (name, language)
+VALUES ('Cash to Coins', 'Python');
+
+INSERT INTO exercises (name, language)
+VALUES ('Coins to Cash', 'Python');
+
+INSERT INTO exercises (name, language)
+VALUES ('Kandy Korner', 'JavaScript');
+
+INSERT INTO exercises (name, language)
+VALUES ('Bear Watcher', 'JavaScript');
+
+INSERT INTO exercises (name, language)
+VALUES ('Tamagotchi', 'SASS');
+
+INSERT INTO exercises (name, language)
+VALUES ('Sports Roster', 'React');
+
+INSERT INTO exercises (name, language)
+VALUES ('Pinterest', 'JavaScript');
+
+INSERT INTO exercises (name, language)
+VALUES ('React Hoarder', 'React');
+
+INSERT INTO instructors (first_name, last_name, slack_handle, cohort_id, specialty)
+SELECT 'Zoe', 'Ames', 'Zoe Ames', cohorts.id, 'Cats'
+FROM cohorts
+WHERE cohorts.name = "Evening Cohort 11";
+
+INSERT INTO instructors (first_name, last_name, slack_handle, cohort_id, specialty)
+SELECT 'Joe', 'Shepard', 'Joe Shepard', cohorts.id, 'Dad Jokes'
+FROM cohorts
+WHERE cohorts.name = 'Day Cohort 40';
+
+INSERT INTO instructors (first_name, last_name, slack_handle, cohort_id, specialty)
+SELECT 'Brian', 'Nilsen', 'Brian Nilsen', cohorts.id, 'Even cornier dad jokes'
+FROM cohorts
+WHERE cohorts.name = 'Day Cohort 40';
+
+INSERT INTO instructors (first_name, last_name, slack_handle, cohort_id, specialty)
+SELECT 'Luke', 'Lancaster', 'Luke Lancaster', cohorts.id, 'Coffee'
+FROM cohorts
+WHERE cohorts.name = 'Evening Cohort 12';
+
+INSERT INTO instructors (first_name, last_name, slack_handle, cohort_id, specialty)
+SELECT 'Nathan', 'Gonzalez', 'Nathan Gonzalez', cohorts.id, 'C#'
+FROM cohorts
+WHERE cohorts.name = 'Evening Cohort 11';
+
+INSERT INTO instructors (first_name, last_name, slack_handle, cohort_id, specialty)
+SELECT 'John', 'Doe', 'John Doe', cohorts.id, 'Being mysterious'
+FROM cohorts
+WHERE cohorts.name = 'Day Cohort 41';
+
+INSERT INTO students (first_name, last_name, slack_handle, cohort_id)
+SELECT 'David', 'Everett', 'David Everett', cohorts.id
+FROM cohorts
+WHERE cohorts.name = "Day Cohort 40";
+
+INSERT INTO students (first_name, last_name, slack_handle, cohort_id)
+SELECT 'Davis', 'Lindell', 'Davis Lindell', cohorts.id
+FROM cohorts
+WHERE cohorts.name = "Day Cohort 40";
+
+INSERT INTO students (first_name, last_name, slack_handle, cohort_id)
+SELECT 'Bethany', 'Whitworth', 'Bethany Whitworth', cohorts.id
+FROM cohorts
+WHERE cohorts.name = "Evening Cohort 11";
+
+INSERT INTO students (first_name, last_name, slack_handle, cohort_id)
+SELECT 'Aaron', 'Lain', 'Aaron Lain', cohorts.id
+FROM cohorts
+WHERE cohorts.name = "Evening Cohort 11";
+
+INSERT INTO students (first_name, last_name, slack_handle, cohort_id)
+SELECT 'Anca', 'Simon', 'Anca Simon', cohorts.id
+FROM cohorts
+WHERE cohorts.name = "Evening Cohort 11";
+
+INSERT INTO students (first_name, last_name, slack_handle, cohort_id)
+SELECT 'Kenny', 'McEastland', 'Kenny McEastland', cohorts.id
+FROM cohorts
+WHERE cohorts.name = "Evening Cohort 11";
+
+INSERT INTO students (first_name, last_name, slack_handle, cohort_id)
+SELECT 'Liza', 'Star', 'Liza Star', cohorts.id
+FROM cohorts
+WHERE cohorts.name = "Evening Cohort 11";
+
+INSERT INTO students (first_name, last_name, slack_handle, cohort_id)
+SELECT 'Daniel', 'Meza', 'Daniel Meza', cohorts.id
+FROM cohorts
+WHERE cohorts.name = "Day Cohort 40";
+
+INSERT INTO students (first_name, last_name, slack_handle, cohort_id)
+SELECT 'Evan', 'Reynolds', 'Evan Reynolds', cohorts.id
+FROM cohorts
+WHERE cohorts.name = "Day Cohort 40";
+
+INSERT INTO students (first_name, last_name, slack_handle, cohort_id)
+SELECT 'Luke', 'Esworthy', 'Luke Esworthy', cohorts.id
+FROM cohorts
+WHERE cohorts.name = "Day Cohort 40";
+
+INSERT INTO students (first_name, last_name, slack_handle, cohort_id)
+SELECT 'Kaleb', 'Moran', 'Kaleb Moran', cohorts.id
+FROM cohorts
+WHERE cohorts.name = "Day Cohort 41";
+
+INSERT INTO students (first_name, last_name, slack_handle, cohort_id)
+SELECT 'Kirk', 'Sudduth', 'Kirk Sudduth', cohorts.id
+FROM cohorts
+WHERE cohorts.name = "Day Cohort 41";
+
+INSERT INTO students (first_name, last_name, slack_handle, cohort_id)
+SELECT 'Brian', 'Cravens', 'Brian Cravens', cohorts.id
+FROM cohorts
+WHERE cohorts.name = "Day Cohort 41";
+
+INSERT INTO students (first_name, last_name, slack_handle, cohort_id)
+SELECT 'Todd', 'Spainour', 'Todd Spainhour', cohorts.id
+FROM cohorts
+WHERE cohorts.name = "Evening Cohort 12";
+
+INSERT INTO students (first_name, last_name, slack_handle, cohort_id)
+SELECT 'Steven', 'Zelenak', 'Steven Zelenak', cohorts.id
+FROM cohorts
+WHERE cohorts.name = "Evening Cohort 12";
+
+INSERT INTO students (first_name, last_name, slack_handle, cohort_id)
+SELECT 'Sarah', 'Holder', 'Sarah Holder', cohorts.id
+FROM cohorts
+WHERE cohorts.name = "Evening Cohort 12";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "David Everett"
+AND exercises.name = "Pet Adoption";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "David Everett"
+AND exercises.name = "Sports Roster";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Davis Lindell"
+AND exercises.name = "Sports Roster";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Davis Lindell"
+AND exercises.name = "Products Cards";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Aaron Lain"
+AND exercises.name = "Sorting Hat";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Aaron Lain"
+AND exercises.name = "Pinterest";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Bethany Whitworth"
+AND exercises.name = "React Hoarder";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Bethany Whitworth"
+AND exercises.name = "Pinterest";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Anca Simon"
+AND exercises.name = "Sports Roster";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Anca Simon"
+AND exercises.name = "Stocks Report";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Kenny McEastland"
+AND exercises.name = "Sorting Hat";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Kenny McEastland"
+AND exercises.name = "Bear Watcher";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Liza Star"
+AND exercises.name = "Tamagotchi";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Liza Star"
+AND exercises.name = "Kandy Korner";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Daniel Meza"
+AND exercises.name = "Tamagotchi";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Daniel Meza"
+AND exercises.name = "Cash to Coins";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Evan Reynolds"
+AND exercises.name = "Coins to Cash";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Evan Reynolds"
+AND exercises.name = "Pet Adoption";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Luke Esworthy"
+AND exercises.name = "Products Cards";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Luke Esworthy"
+AND exercises.name = "Pinterest";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Kaleb Moran"
+AND exercises.name = "Tamagotchi";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Kaleb Moran"
+AND exercises.name = "React Hoarder";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Kirk Sudduth"
+AND exercises.name = "Kandy Korner";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Kirk Sudduth"
+AND exercises.name = "Coins to Cash";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Brian Cravens"
+AND exercises.name = "Bear Watcher";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Brian Cravens"
+AND exercises.name = "Stocks Report";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Todd Spainhour"
+AND exercises.name = "Sorting Hat";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Todd Spainhour"
+AND exercises.name = "Sports Roster";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Steven Zelenak"
+AND exercises.name = "React Hoarder";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Steven Zelenak"
+AND exercises.name = "Pinterest";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Sarah Holder"
+AND exercises.name = "Coins to Cash";
+
+INSERT INTO student_exercises (student_id, exercise_id)
+SELECT students.id, exercises.id
+FROM students, exercises
+WHERE students.slack_handle = "Sarah Holder"
+AND exercises.name = "Pet Adoption";
