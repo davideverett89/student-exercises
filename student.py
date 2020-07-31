@@ -9,5 +9,5 @@ class Student(NSSPerson):
     def setAssignment(self, assignment):
         self.assignments.add(assignment)
 
-    def __str__(self):
-        return f'{self.first_name} {self.last_name} is in {self.cohort}.  His/her slack handle is {self.slack_handle}.'
+    def __repr__(self):
+        return f'{self.first_name} {self.last_name} is in {self.cohort}.'
