@@ -141,18 +141,38 @@ class ExerciseReports:
 
             [print(e) for e in python_exercises]
 
+    def c_sharp_exercises(self):
+
+        with sqlite3.connect(self.db_path) as conn:
+            conn.row_factory = lambda cursor, row: Exercise(row[0], row[1])
+            db_cursor = conn.cursor()
+
+            db_cursor.execute("""
+            SELECT name, language
+            FROM exercises
+            WHERE language
+            LIKE "%C#%"
+            ORDER BY name
+            """)
+
+            c_sharp_exercises = db_cursor.fetchall()
+
+            [print(e) for e in c_sharp_exercises]
 
 
-student_reports = StudentReport()
-student_reports.all_students()
 
-cohort_report = CohortReport()
-cohort_report.all_cohorts()
+# student_reports = StudentReport()
+# student_reports.all_students()
+
+# cohort_report = CohortReport()
+# cohort_report.all_cohorts()
 
 exercise_reports = ExerciseReports()
-exercise_reports.all_exercises()
-exercise_reports.javascript_exercises()
-exercise_reports.python_exercises()
+# exercise_reports.all_exercises()
+# exercise_reports.javascript_exercises()
+# exercise_reports.python_exercises()
 
-instructor_report = InstructorReport()
-instructor_report.all_instructors()
+# instructor_report = InstructorReport()
+# instructor_report.all_instructors()
+
+exercise_reports.c_sharp_exercises()
