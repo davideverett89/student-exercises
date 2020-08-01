@@ -96,6 +96,15 @@ VALUES ('Pinterest', 'JavaScript');
 INSERT INTO exercises (name, language)
 VALUES ('React Hoarder', 'React');
 
+INSERT INTO exercises (name, language)
+VALUES ('Hello World', 'C#');
+
+INSERT INTO exercises (name, language)
+VALUES ('Plan Your Heist', 'C#');
+
+INSERT INTO exercises (name, language)
+VALUES ('Chinook', 'C#');
+
 INSERT INTO instructors (first_name, last_name, slack_handle, cohort_id, specialty)
 SELECT 'Zoe', 'Ames', 'Zoe Ames', cohorts.id, 'Cats'
 FROM cohorts
