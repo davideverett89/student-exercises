@@ -161,18 +161,18 @@ class ExerciseReports:
 
 
 
-# student_reports = StudentReport()
-# student_reports.all_students()
+student_reports = StudentReport()
+student_reports.all_students()
 
-# cohort_report = CohortReport()
-# cohort_report.all_cohorts()
+cohort_report = CohortReport()
+cohort_report.all_cohorts()
 
 exercise_reports = ExerciseReports()
-# exercise_reports.all_exercises()
-# exercise_reports.javascript_exercises()
-# exercise_reports.python_exercises()
+exercise_reports.all_exercises()
+exercise_reports.javascript_exercises()
+exercise_reports.python_exercises()
 
-# instructor_report = InstructorReport()
-# instructor_report.all_instructors()
+instructor_report = InstructorReport()
+instructor_report.all_instructors()
 
 exercise_reports.c_sharp_exercises()
