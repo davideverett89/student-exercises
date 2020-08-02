@@ -4,6 +4,86 @@ from exercise import Exercise
 from cohort import Cohort
 from instructor import Instructor
 
+class StudentExerciseReport:
+
+    def __init__(self):
+        self.db_path = "/Users/davideverett/workspace/python/StudentExercises/studentexercises.db"
+
+    def assignments_with_students(self):
+
+        print("""
+        +--+--+--+--+--+--+--+--+--+--+
+
+           ASSIGNMENTS WITH STUDENTS
+
+        +--+--+--+--+--+--+--+--+--+--+
+        """)
+
+        exercises = dict()
+
+        with sqlite3.connect(self.db_path) as conn:
+            db_cursor = conn.cursor()
+
+            db_cursor.execute("""
+            SELECT exercises.name, students.first_name, students.last_name
+            FROM exercises
+            JOIN student_exercises ON student_exercises.exercise_id = exercises.id
+            JOIN students ON students.id = student_exercises.student_id;
+            """)
+
+            dataset = db_cursor.fetchall()
+
+            for row in dataset:
+                exercise_name = row[0]
+                student_name = f'{row[1]} {row[2]}'
+                if exercise_name not in exercises:
+                    exercises[exercise_name] = [student_name]
+                else:
+                    exercises[exercise_name].append(student_name)
+
+            for exercise_name, students in exercises.items():
+                print(exercise_name)
+                for student in students:
+                    print(f'\t*   {student}')
+
+    def students_with_assignments(self):
+
+        print("""
+        +--+--+--+--+--+--+--+--+--+--+
+
+           STUDENTS WITH ASSIGNMENTS
+
+        +--+--+--+--+--+--+--+--+--+--+
+        """)
+
+        students = dict()
+
+        with sqlite3.connect(self.db_path) as conn:
+            db_cursor = conn.cursor()
+
+            db_cursor.execute("""
+            SELECT students.first_name, students.last_name, exercises.name
+            FROM students
+            JOIN student_exercises
+            ON students.id = student_exercises.student_id
+            JOIN exercises
+            ON exercises.id = student_exercises.exercise_id;
+            """)
+
+            dataset = db_cursor.fetchall()
+
+            for row in dataset:
+                student_name = f'{row[0]} {row[1]}'
+                exercise_name = row[2]
+                if student_name not in students:
+                    students[student_name] = [exercise_name]
+                else:
+                    students[student_name].append(exercise_name)
+
+            for student_name, exercises in students.items():
+                print(student_name)
+                for exercise in exercises:
+                    print(f'\t*     {exercise}')
 
 class StudentReport():
 
@@ -161,18 +241,24 @@ class ExerciseReports:
 
 
 
-student_reports = StudentReport()
-student_reports.all_students()
+# student_reports = StudentReport()
+# student_reports.all_students()
 
-cohort_report = CohortReport()
-cohort_report.all_cohorts()
+# cohort_report = CohortReport()
+# cohort_report.all_cohorts()
 
-exercise_reports = ExerciseReports()
-exercise_reports.all_exercises()
-exercise_reports.javascript_exercises()
-exercise_reports.python_exercises()
+# exercise_reports = ExerciseReports()
+# exercise_reports.all_exercises()
+# exercise_reports.javascript_exercises()
+# exercise_reports.python_exercises()
 
-instructor_report = InstructorReport()
-instructor_report.all_instructors()
+# instructor_report = InstructorReport()
+# instructor_report.all_instructors()
 
-exercise_reports.c_sharp_exercises()
+# exercise_reports.c_sharp_exercises()
+
+student_exercise_report = StudentExerciseReport()
+
+student_exercise_report.students_with_assignments()
+
+student_exercise_report.assignments_with_students()

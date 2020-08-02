@@ -406,3 +406,15 @@ SELECT students.id, exercises.id
 FROM students, exercises
 WHERE students.slack_handle = "Sarah Holder"
 AND exercises.name = "Pet Adoption";
+
+SELECT students.first_name AS "First Name", students.last_name AS "Last Name", exercises.name AS "Assignment"
+FROM students
+JOIN student_exercises
+ON students.id = student_exercises.student_id
+JOIN exercises
+ON exercises.id = student_exercises.exercise_id;
+
+SELECT exercises.name AS "Assignment", students.first_name AS "First Name", students.last_name AS "Last Name"
+FROM exercises
+JOIN student_exercises ON student_exercises.exercise_id = exercises.id
+JOIN students ON students.id = student_exercises.student_id;
