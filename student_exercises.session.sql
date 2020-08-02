@@ -418,3 +418,13 @@ SELECT exercises.name AS "Assignment", students.first_name AS "First Name", stud
 FROM exercises
 JOIN student_exercises ON student_exercises.exercise_id = exercises.id
 JOIN students ON students.id = student_exercises.student_id;
+
+SELECT cohorts.name, students.first_name, students.last_name
+FROM cohorts
+JOIN students
+ON students.cohort_id = cohorts.id;
+
+SELECT cohorts.name, instructors.first_name, instructors.last_name
+FROM cohorts
+JOIN instructors
+ON instructors.cohort_id = cohorts.id;
