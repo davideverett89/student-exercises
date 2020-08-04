@@ -6,7 +6,7 @@ DELETE FROM student_exercises;
 
 DROP TABLE IF EXISTS cohorts;
 DROP TABLE IF EXISTS students;
-DROP TABLE IF EXISTS instuctors;
+DROP TABLE IF EXISTS instructors;
 DROP TABLE IF EXISTS exercises;
 DROP TABLE IF EXISTS student_exercises;
 
@@ -116,19 +116,9 @@ FROM cohorts
 WHERE cohorts.name = 'Day Cohort 40';
 
 INSERT INTO instructors (first_name, last_name, slack_handle, cohort_id, specialty)
-SELECT 'Brian', 'Nilsen', 'Brian Nilsen', cohorts.id, 'Even cornier dad jokes'
-FROM cohorts
-WHERE cohorts.name = 'Day Cohort 40';
-
-INSERT INTO instructors (first_name, last_name, slack_handle, cohort_id, specialty)
 SELECT 'Luke', 'Lancaster', 'Luke Lancaster', cohorts.id, 'Coffee'
 FROM cohorts
 WHERE cohorts.name = 'Evening Cohort 12';
-
-INSERT INTO instructors (first_name, last_name, slack_handle, cohort_id, specialty)
-SELECT 'Nathan', 'Gonzalez', 'Nathan Gonzalez', cohorts.id, 'C#'
-FROM cohorts
-WHERE cohorts.name = 'Evening Cohort 11';
 
 INSERT INTO instructors (first_name, last_name, slack_handle, cohort_id, specialty)
 SELECT 'John', 'Doe', 'John Doe', cohorts.id, 'Being mysterious'
@@ -428,3 +418,26 @@ SELECT cohorts.name, instructors.first_name, instructors.last_name
 FROM cohorts
 JOIN instructors
 ON instructors.cohort_id = cohorts.id;
+
+SELECT instructors.first_name, instructors.last_name, cohorts.name cohort_name, exercises.name
+FROM instructors
+JOIN cohorts
+ON cohorts.id = instructors.cohort_id
+JOIN students
+ON students.cohort_id = cohorts.id
+JOIN student_exercises
+ON students.id = student_exercises.student_id
+JOIN exercises
+ON exercises.id = student_exercises.exercise_id;
+
+SELECT 
+    exercises.name as "Exercise", 
+    instructors.first_name AS "Instructor First Name", 
+    instructors.last_name AS "Instructor Last Name", 
+    students.first_name AS "Student First Name", 
+    students.last_name AS "Student Last Name"
+FROM exercises
+JOIN student_exercises ON exercises.id = student_exercises.exercise_id
+JOIN students ON student_exercises.student_id = students.id
+JOIN cohorts ON students.cohort_id = cohorts.id
+JOIN instructors ON cohorts.id = instructors.cohort_id;
